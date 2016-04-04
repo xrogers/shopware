@@ -44,7 +44,7 @@ class Shopware_RegressionTests_Ticket4788 extends Enlight_Components_Test_Plugin
     /**
         * Set up test case, fix demo data where needed
         */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

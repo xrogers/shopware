@@ -9,7 +9,7 @@ class Shopware_Tests_Components_Hash_Hasher_PreHashedTest extends PHPUnit_Framew
      */
     private $hasher;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->hasher = new PreHashed();
     }

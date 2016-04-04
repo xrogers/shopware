@@ -3,12 +3,13 @@
 namespace Shopware\Tests\Bundle\MediaBundle;
 
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
+use Shopware\Tests\KernelTestCase;
 
 /**
  * Class FilesystemTest
  * @package Shopware\Tests\Bundle\MediaBundle
  */
-class FilesystemTest extends \Enlight_Components_Test_TestCase
+class FilesystemTest extends KernelTestCase
 {
     /**
      * @var MediaServiceInterface
@@ -36,6 +37,7 @@ class FilesystemTest extends \Enlight_Components_Test_TestCase
     protected function setUp()
     {
         parent::setUp();
+        parent::bootKernel();
 
         $this->mediaService = Shopware()->Container()->get('shopware_media.media_service');
         $this->testData = [

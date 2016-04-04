@@ -22,7 +22,7 @@
  * our trademarks remain entirely with us.
  */
 
-class sAdminTest extends PHPUnit_Framework_TestCase
+class sAdminTest extends Enlight_Components_Test_TestCase
 {
     /**
      * @var sAdmin
@@ -59,7 +59,7 @@ class sAdminTest extends PHPUnit_Framework_TestCase
      */
     private $front;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

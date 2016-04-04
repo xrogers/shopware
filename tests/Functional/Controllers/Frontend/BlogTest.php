@@ -30,7 +30,7 @@ class Shopware_Tests_Controllers_Frontend_BlogTest extends Enlight_Components_Te
     /**
      * Set up test case, fix demo data where needed
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

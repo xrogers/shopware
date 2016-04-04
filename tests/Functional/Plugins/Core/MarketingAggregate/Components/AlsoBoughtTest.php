@@ -35,7 +35,7 @@ class AlsoBoughtTest extends AbstractMarketing
 {
     protected $orderData;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

@@ -21,13 +21,14 @@
  * trademark license. Therefore any rights, title and interest in
  * our trademarks remain entirely with us.
  */
+use Shopware\Tests\KernelTestCase;
 
 /**
  * @category  Shopware
  * @package   Shopware\Tests
  * @copyright Copyright (c) 2012, shopware AG (http://www.shopware.de)
  */
-class Shopware_Tests_Components_TemplateMailTest extends Enlight_Components_Test_TestCase
+class Shopware_Tests_Components_TemplateMailTest extends KernelTestCase
 {
     /**
      * @var \Shopware_Components_TemplateMail $mail
@@ -41,6 +42,13 @@ class Shopware_Tests_Components_TemplateMailTest extends Enlight_Components_Test
     protected function setUp()
     {
         parent::setUp();
+        parent::bootKernel();
+
+        /** @var $repository \Shopware\Models\Shop\Repository */
+        $repository = Shopware()->Container()->get('models')->getRepository('Shopware\Models\Shop\Shop');
+
+        $shop = $repository->getActiveDefault();
+        $shop->registerResources();
 
         $stringCompiler = new Shopware_Components_StringCompiler(Shopware()->Template());
 

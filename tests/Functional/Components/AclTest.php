@@ -21,13 +21,14 @@
  * trademark license. Therefore any rights, title and interest in
  * our trademarks remain entirely with us.
  */
+use Shopware\Tests\KernelTestCase;
 
 /**
  * @category  Shopware
  * @package   Shopware\Tests
  * @copyright Copyright (c) 2012, shopware AG (http://www.shopware.de)
  */
-class Shopware_Tests_Components_AclTest extends Enlight_Components_Test_TestCase
+class Shopware_Tests_Components_AclTest extends KernelTestCase
 {
     /**
      * @var \Shopware_Components_Acl $acl
@@ -41,6 +42,7 @@ class Shopware_Tests_Components_AclTest extends Enlight_Components_Test_TestCase
     protected function setUp()
     {
         parent::setUp();
+        parent::bootKernel();
 
         $this->acl = Shopware()->Acl();
     }

@@ -34,7 +34,7 @@ class Shopware_Tests_Components_Event_SubscriberArrayTest extends \PHPUnit_Frame
      */
     protected $eventManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->eventManager = new Enlight_Event_Subscriber_Array();
     }

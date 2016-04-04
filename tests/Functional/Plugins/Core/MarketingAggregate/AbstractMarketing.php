@@ -84,7 +84,7 @@ class AbstractMarketing extends \Enlight_Components_Test_Plugin_TestCase
         return $this->Db()->fetchAll("SELECT * FROM s_articles " . $condition);
     }
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
     }

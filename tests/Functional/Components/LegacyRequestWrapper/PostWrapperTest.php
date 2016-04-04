@@ -24,7 +24,7 @@
 /**
  * @covers \Shopware\Components\LegacyRequestWrapper\PostWrapper
  */
-class Shopware_Tests_Components_LegacyRequestWrapper_PostWrapperTest extends Enlight_Components_Test_Controller_TestCase
+class Shopware_Tests_Components_LegacyRequestWrapper_PostWrapperTest extends \Shopware\Tests\KernelTestCase
 {
     private static $resources = array(
         'Admin',
@@ -39,11 +39,20 @@ class Shopware_Tests_Components_LegacyRequestWrapper_PostWrapperTest extends Enl
         'RewriteTable'
     );
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
+        parent::bootKernel();
 
-        $this->dispatch('/');
+        Shopware()->Front()->setRequest(
+            new Enlight_Controller_Request_RequestTestCase()
+        );
+
+        /** @var $repository \Shopware\Models\Shop\Repository */
+        $repository = Shopware()->Container()->get('models')->getRepository('Shopware\Models\Shop\Shop');
+
+        $shop = $repository->getActiveDefault();
+        $shop->registerResources();
     }
 
     /**

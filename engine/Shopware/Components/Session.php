@@ -22,34 +22,22 @@
  * our trademarks remain entirely with us.
  */
 
-require __DIR__ . '/../../autoload.php';
+namespace Shopware\Components;
 
-class TestKernel extends \Shopware\Kernel
+class Session
 {
-    protected function getConfigPath()
+    private static $unitTestEnabled;
+
+    public static function setUnitTestEnabled($unitTestEnabled = true)
     {
-        return __DIR__ . '/config.php';
+        self::$unitTestEnabled = $unitTestEnabled;
     }
 
-    /**
-     * Static method to start boot kernel without leaving local scope in test helper
-     */
-    public static function start()
+    public static function sessionRegenerateId($deleteOldSession = false)
     {
-        $kernel = new self('testing', true);
-        $kernel->boot();
-
-        $container = $kernel->getContainer();
-        $container->get('plugins')->Core()->ErrorHandler()->registerErrorHandler(E_ALL | E_STRICT);
-
-        /** @var $repository \Shopware\Models\Shop\Repository */
-        $repository = $container->get('models')->getRepository('Shopware\Models\Shop\Shop');
-
-        $shop = $repository->getActiveDefault();
-        $shop->registerResources();
-
-        $_SERVER['HTTP_HOST'] = $shop->getHost();
+        if (self::$unitTestEnabled) {
+            return true;
+        }
+        return session_regenerate_id($deleteOldSession);
     }
 }
-
-TestKernel::start();

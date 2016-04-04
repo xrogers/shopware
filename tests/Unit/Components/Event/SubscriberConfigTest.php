@@ -34,7 +34,7 @@ class Shopware_Tests_Components_Event_SubscriberConfigTest extends \PHPUnit_Fram
      */
     protected $eventManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->eventManager = new Enlight_Event_Subscriber_Config('test');
     }

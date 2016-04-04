@@ -37,7 +37,7 @@ class GetWrapperTest extends \PHPUnit_Framework_TestCase
      */
     private $system;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->request = new Enlight_Controller_Request_RequestTestCase();
         $this->system = new sSystem($this->request);

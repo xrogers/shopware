@@ -52,6 +52,13 @@ class Shopware extends Enlight_Application
      */
     protected $container;
 
+    public function shutDown()
+    {
+        self::$instance = null;
+        $this->container = null;
+        Shopware(false);
+    }
+
     /**
      * @param Container $container
      */
@@ -385,6 +392,13 @@ class Shopware extends Enlight_Application
 function Shopware($newInstance = null)
 {
     static $instance;
+
+    if ($newInstance === false) {
+        $instance = null;
+        unset($instance);
+        return null;
+    }
+
     if (isset($newInstance)) {
         $oldInstance = $instance;
         $instance    = $newInstance;

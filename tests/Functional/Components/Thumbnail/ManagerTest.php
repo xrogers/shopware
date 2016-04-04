@@ -1,4 +1,6 @@
 <?php
+use Shopware\Tests\KernelTestCase;
+
 /**
  * Shopware 5
  * Copyright (c) shopware AG
@@ -21,8 +23,14 @@
  * trademark license. Therefore any rights, title and interest in
  * our trademarks remain entirely with us.
  */
-class Shopware_Tests_Components_Thumbnail_ManagerTest extends \PHPUnit_Framework_TestCase
+class Shopware_Tests_Components_Thumbnail_ManagerTest extends KernelTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        parent::bootKernel();
+    }
+
     public function testManagerInstance()
     {
         $manager = Shopware()->Container()->get('thumbnail_manager');

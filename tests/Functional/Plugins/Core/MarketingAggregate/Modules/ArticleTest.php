@@ -38,7 +38,7 @@ class ArticleTest extends AbstractMarketing
     /**
      * Set up function for this test case.
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->module = Shopware()->Modules()->Articles();

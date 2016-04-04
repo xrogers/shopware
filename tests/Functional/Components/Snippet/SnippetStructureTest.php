@@ -21,14 +21,21 @@
  * trademark license. Therefore any rights, title and interest in
  * our trademarks remain entirely with us.
  */
+use Shopware\Tests\KernelTestCase;
 
 /**
  * @category  Shopware
  * @package   Shopware\Tests
  * @copyright Copyright (c) 2015, shopware AG (http://www.shopware.com)
  */
-class Shopware_Tests_Components_Snippet_SnippetStructureTest extends Enlight_Components_Test_TestCase
+class Shopware_Tests_Components_Snippet_SnippetStructureTest extends KernelTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        parent::bootKernel();
+    }
+
     /**
      * Test case
      */

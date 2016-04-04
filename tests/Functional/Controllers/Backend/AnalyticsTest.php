@@ -45,7 +45,7 @@ class Shopware_Tests_Controllers_Backend_AnalyticsTest extends Enlight_Component
     /**
      * Standard set up for every test - just disable auth
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

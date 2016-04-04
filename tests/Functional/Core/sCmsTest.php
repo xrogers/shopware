@@ -28,7 +28,7 @@ class sCmsTest extends Enlight_Components_Test_Controller_TestCase
      */
     private $module;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->Front()->setRequest($this->Request());
         $this->module = Shopware()->Modules()->Cms();

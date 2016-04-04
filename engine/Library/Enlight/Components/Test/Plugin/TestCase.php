@@ -45,19 +45,17 @@ abstract class Enlight_Components_Test_Plugin_TestCase extends Enlight_Component
      */
     public function createEventArgs($name = null, $args = array())
     {
-        if ($name === null) {
-            $name = get_class($this);
-        } elseif (is_array($name)) {
+        if (is_array($name)) {
             $args = $name;
-            $name = get_class($this);
         }
+
         return new Enlight_Event_EventArgs($args);
     }
 
     /**
      * Tests set up method
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

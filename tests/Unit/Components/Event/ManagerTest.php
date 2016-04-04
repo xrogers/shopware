@@ -37,7 +37,7 @@ class Shopware_Tests_Components_Event_ManagerTest extends \PHPUnit_Framework_Tes
      */
     protected $eventManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->eventManager = new Enlight_Event_EventManager();
     }

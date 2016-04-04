@@ -47,7 +47,7 @@ class sOrderTest extends PHPUnit_Framework_TestCase
         return $resource;
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->module = Shopware()->Modules()->Order();
         Shopware()->Session()->offsetSet('sessionId', self::$sessionId);

@@ -34,7 +34,7 @@ class Shopware_Tests_Modules_Articles_SeoCategoryTest extends Enlight_Components
      */
     private $resource;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->resource = new \Shopware\Components\Api\Resource\Article();
         $this->resource->setManager(Shopware()->Models());

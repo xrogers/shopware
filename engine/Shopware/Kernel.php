@@ -276,8 +276,12 @@ class Kernel implements HttpKernelInterface
         );
 
         // Set up mpdf cache dirs
-        define("_MPDF_TEMP_PATH", $this->getCacheDir() .'/mpdf/tmp/');
-        define("_MPDF_TTFONTDATAPATH", $this->getCacheDir() .'/mpdf/ttfontdata/');
+        if (!defined("_MPDF_TEMP_PATH")) {
+            define("_MPDF_TEMP_PATH", $this->getCacheDir() .'/mpdf/tmp/');
+        }
+        if (!defined("_MPDF_TTFONTDATAPATH")) {
+            define("_MPDF_TTFONTDATAPATH", $this->getCacheDir() .'/mpdf/ttfontdata/');
+        }
     }
 
     /**
@@ -631,5 +635,21 @@ class Kernel implements HttpKernelInterface
     public function getElasticSearchConfig()
     {
         return is_array($this->config['es']) ? $this->config['es'] : [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function shutdown()
+    {
+        if (false === $this->booted) {
+            return;
+        }
+
+        $this->shopware->shutDown();
+
+        $this->booted = false;
+        $this->container = null;
+        $this->shopware = null;
     }
 }

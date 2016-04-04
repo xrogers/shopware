@@ -32,7 +32,7 @@ class Shopware_Tests_Controllers_Backend_RiskManagementTest extends Enlight_Comp
     /**
      * Standard set up for every test - just disable auth
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

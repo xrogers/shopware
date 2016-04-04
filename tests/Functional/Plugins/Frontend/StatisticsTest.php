@@ -30,16 +30,22 @@
 class Shopware_Tests_Plugins_Frontend_StatisticsTest extends Enlight_Components_Test_Plugin_TestCase
 {
     /**
-     * @var Shopware_Plugins_Frontend_Paypal_Bootstrap
+     * @var Shopware_Plugins_Frontend_Statistics_Bootstrap
      */
     protected $plugin;
 
     /**
      * Test set up method
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
+        parent::bootKernel();
+
+        /** @var $repository \Shopware\Models\Shop\Repository */
+        $repository = Shopware()->Container()->get('models')->getRepository('Shopware\Models\Shop\Shop');
+        $shop = $repository->getActiveDefault();
+        $shop->registerResources();
 
         $this->plugin = Shopware()->Plugins()->Frontend()->Statistics();
 
@@ -104,7 +110,7 @@ class Shopware_Tests_Plugins_Frontend_StatisticsTest extends Enlight_Components_
           array('http://google.de/', '123', 'http://google.de/$123', true),
           array('http://google.de/', null, 'http://google.de/', true),
           array('http://google.de/', null, 'www.google.de/', false),
-          array('http://google.de/', null, 'http://'.Shopware()->Config()->Host.'/', false)
+          array('http://google.de/', null, 'http://localhost/', false)
         );
     }
 

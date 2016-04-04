@@ -8,6 +8,10 @@ return array_merge($this->loadConfig($this->AppPath() . 'Configs/Default.php'), 
     'errorHandler' => array(
         'throwOnRecoverableError' => true,
     ),
+    'csrfProtection' => [
+        'frontend' => false,
+        'backend' => false
+    ],
     'session' => array(
         'unitTestEnabled' => true,
         'name' => 'SHOPWARESID',

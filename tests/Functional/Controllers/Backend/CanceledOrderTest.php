@@ -34,7 +34,7 @@ class Shopware_Tests_Controllers_Backend_CanceledOrderTest extends Enlight_Compo
     /**
      * Set up test case, fix demo data where needed
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

@@ -25,6 +25,7 @@
 namespace Shopware\Tests\Components\Api;
 
 use Shopware\Components\Api\Resource\Resource as APIResource;
+use Shopware\Tests\KernelTestCase;
 
 /**
  * Abstract TestCase for Resource-Tests
@@ -33,12 +34,42 @@ use Shopware\Components\Api\Resource\Resource as APIResource;
  * @package   Shopware\Tests
  * @copyright Copyright (c) 2013, shopware AG (http://www.shopware.de)
  */
-abstract class TestCase extends \Enlight_Components_Test_TestCase
+abstract class TestCase extends KernelTestCase
 {
     /**
      * @var APIResource
      */
     protected $resource;
+
+    public static function setUpBeforeClass()
+    {
+        parent::bootKernel();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        parent::ensureKernelShutdown();
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        Shopware()->Models()->clear();
+
+        $this->resource = $this->createResource();
+        $this->resource->setManager(Shopware()->Models());
+    }
+
+    protected function tearDown()
+    {
+        Shopware()->Models()->clear();
+
+        // Do not call parent::tearDown();
+        // Kernel should be shared for this testfile to prevent
+        // "mysql: too many connections" error
+    }
+
 
     /**
      * @return APIResource
@@ -60,21 +91,6 @@ abstract class TestCase extends \Enlight_Components_Test_TestCase
                 ->will($this->returnValue(false));
 
         return $aclMock;
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        Shopware()->Models()->clear();
-
-        $this->resource = $this->createResource();
-        $this->resource->setManager(Shopware()->Models());
-    }
-
-    protected function tearDown()
-    {
-        Shopware()->Models()->clear();
     }
 
 

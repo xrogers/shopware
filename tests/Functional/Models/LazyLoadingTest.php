@@ -41,7 +41,7 @@ class LazyLoadingTest extends PHPUnit_Framework_TestCase
         Shopware()->Db()->query("DELETE FROM s_core_customergroups WHERE description LIKE 'testGroup'");
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->em = Shopware()->Models();
     }

@@ -32,7 +32,7 @@ class Shopware_Tests_Controllers_Backend_LogTest extends Enlight_Components_Test
     /**
      * Standard set up for every test - just disable auth
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         // disable auth and acl

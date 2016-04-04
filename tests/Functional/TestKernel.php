@@ -22,32 +22,12 @@
  * our trademarks remain entirely with us.
  */
 
-namespace Shopware\Bundle\AttributeBundle\DependencyInjection\EventListener;
+namespace Shopware\Tests;
 
-use Enlight\Event\SubscriberInterface;
-
-/**
- * @category  Shopware
- * @package   Shopware\Bundle\AttributeBundle\DependencyInjection\EventListener
- * @copyright Copyright (c) shopware AG (http://www.shopware.com)
- */
-class ControllerSubscriber implements SubscriberInterface
+class TestKernel extends \Shopware\Kernel
 {
-    public static function getSubscribedEvents()
+    protected function getConfigPath()
     {
-        return [
-            'Enlight_Controller_Dispatcher_ControllerPath_Backend_EntitySearch' => 'registerEntitySearchController',
-            'Enlight_Controller_Dispatcher_ControllerPath_Backend_Attributes' => 'registerAttributesController'
-        ];
-    }
-
-    public function registerEntitySearchController()
-    {
-        return __DIR__ . '/../../Controllers/Backend/EntitySearch.php';
-    }
-
-    public function registerAttributesController()
-    {
-        return __DIR__ . '/../../Controllers/Backend/Attributes.php';
+        return __DIR__ . '/config.php';
     }
 }

@@ -41,7 +41,7 @@ class Shopware_Tests_Controllers_Backend_UserManagerTest extends Enlight_Compone
     );
     protected $temporaryRoleName;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

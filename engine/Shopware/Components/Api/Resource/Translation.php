@@ -81,7 +81,7 @@ class Translation extends Resource implements BatchInterface
      */
     public function getIdByData($data)
     {
-        if ($data['useNumberAsId']) {
+        if (isset($data['useNumberAsId']) && $data['useNumberAsId']) {
             return $this->getIdByNumber(
                 $data['key'],
                 $data['type']

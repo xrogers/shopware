@@ -27,8 +27,14 @@ namespace Shopware\Tests\Components\Theme;
 /**
  * Class Shopware_Tests_Components_Theme_Base
  */
-class Base extends \Enlight_Components_Test_TestCase
+class Base extends  \Shopware\Tests\KernelTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        parent::bootKernel();
+    }
+
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */

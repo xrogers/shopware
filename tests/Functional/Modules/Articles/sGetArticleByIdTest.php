@@ -3492,7 +3492,7 @@ class Shopware_Tests_Modules_Articles_sGetArticleByIdTest extends Enlight_Compon
     /**
      * Test set up method
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->module = Shopware()->Modules()->Articles();

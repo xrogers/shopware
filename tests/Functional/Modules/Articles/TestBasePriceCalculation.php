@@ -35,7 +35,7 @@ class Shopware_Tests_Modules_Articles_TestBasePriceCalculation extends Enlight_C
     /**
      * Set up test case, fix demo data where needed
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

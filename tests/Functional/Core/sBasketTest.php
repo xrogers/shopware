@@ -51,7 +51,7 @@ class sBasketTest extends PHPUnit_Framework_TestCase
      */
     private $snippetManager;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

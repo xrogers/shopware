@@ -28,7 +28,7 @@ class sCoreTest extends Enlight_Components_Test_Controller_TestCase
      */
     private $module;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->module = Shopware()->Modules()->Core();
     }
