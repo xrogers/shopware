@@ -2,6 +2,13 @@
 
 This changelog references changes done in Shopware 5.2 patch versions.
 
+## 5.2.9
+* Added new service `log.file_reader` for parsing log files written by `Shopware\Components\Log\Formatter\LineFormatter`
+* Added tabs for viewing log entries written by `corelogger` and `pluginlogger` to the backend log app
+* Renamed actions of `Shopware_Controllers_Backend_Log`:
+    * `getLogsAction` -> `getBackendLogsAction`
+    * `deleteLogsAction` -> `deleteBackendLogsAction`
+
 ## 5.2.8
 
 [View all changes from v5.2.7...v5.2.8](https://github.com/shopware/shopware/compare/v5.2.7...v5.2.8)
