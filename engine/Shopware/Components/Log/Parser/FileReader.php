@@ -24,6 +24,8 @@
 
 namespace Shopware\Components\Log\Parser;
 
+use Bcremer\LineReader\LineReader;
+
 /**
  * @category  Shopware
  * @package   Shopware\Components\Log\Parser
@@ -67,47 +69,36 @@ class FileReader
      */
     public function readEntries($logType, $offset = 0, $limit = -1, $sortAscending = false)
     {
-        // Pars log files
-        $skipped = 0;
-        $entries = [];
+        // Parse log files
         $logFiles = $this->findLogFiles($logType, $sortAscending);
+
+        $lines = new \AppendIterator();
+        $linecount = 0;
+
         foreach ($logFiles as $filePath) {
-            // Read file line by line
-            $handle = fopen($filePath, 'r');
-            if (!$handle) {
-                continue;
-            }
-            $lines = [];
-            while (($line = fgets($handle)) !== false) {
-                $lines[] = $line;
-            }
-            fclose($handle);
+            $linecount += $this->getNumberOfLines($filePath);
 
             if (!$sortAscending) {
-                // Revers lines to read newest results first
-                $lines = array_reverse($lines, true);
+                $lineGenerator = LineReader::readLinesBackwards($filePath);
+            } else {
+                $lineGenerator = LineReader::readLines($filePath);
             }
+            $lines->append($lineGenerator);
+        }
 
-            // Parse log lines
-            foreach ($lines as $lineNumber => $line) {
-                // Skip all entries before the offset and after reaching the limit, but count them
-                if ($skipped < $offset || count($entries) === $limit) {
-                    $skipped++;
-                    continue;
-                }
-
-                // Parse the current line
-                $logEntry = $this->lineParser->parseLine($line);
-                if (!isset($logEntry['id'])) {
-                    $logEntry['id'] = sha1($filePath . ':' . $lineNumber . ':' . $line);
-                }
-                $entries[] = $logEntry;
+        $entries = [];
+        foreach (new \LimitIterator($lines, $offset, $limit) as $lineNumber => $line) {
+            // Parse the current line
+            $logEntry = $this->lineParser->parseLine($line);
+            if (!array_key_exists('id', $logEntry)) {
+                $logEntry['id'] = sha1($line);
             }
+            $entries[] = $logEntry;
         }
 
         return [
             'data' => $entries,
-            'total' => count($entries) + $skipped
+            'total' => $linecount,
         ];
     }
 
@@ -120,7 +111,7 @@ class FileReader
     {
         // Find log files matching the path, environment and type
         $pattern = '/'.preg_quote($logType, '/').'_'.preg_quote($this->environment, '/').'-.*\.log/';
-        $files = scandir($this->logsPath, ($sortAscending) ? SCANDIR_SORT_ASCENDING : SCANDIR_SORT_DESCENDING);
+        $files = scandir($this->logsPath, $sortAscending ? SCANDIR_SORT_ASCENDING : SCANDIR_SORT_DESCENDING);
         $logFiles = array_filter($files, function ($fileName) use ($pattern) {
             return preg_match($pattern, $fileName) === 1;
         });
@@ -129,5 +120,19 @@ class FileReader
         }, $logFiles);
 
         return $logFiles;
+    }
+
+    /**
+     * Return the number of lines for the given file.
+     * This is faster than iterating fgets.
+     * @param string $filePath
+     * @return int
+     */
+    private function getNumberOfLines($filePath)
+    {
+        $file = new \SplFileObject($filePath, 'r');
+        $file->seek(PHP_INT_MAX);
+
+        return $file->key();
     }
 }
